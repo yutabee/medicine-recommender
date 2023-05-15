@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SymptomSelector } from "@/components/SymptomSelector";
 import { ProductList } from "@/components/ProductList";
+import Header from "@/components/Header";
 
 export default function Home() {
   const [selectedSymptom, setSelectedSymptom] = useState<string | null>(null);
@@ -11,7 +12,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-blue-100">
-      <h1 className="text-4xl font-bold mb-4">Medicine Recommender</h1>
+      <Header />
       <SymptomSelector onSymptomSelect={handleSymptomSelect} />
       {selectedSymptom && <ProductList symptomId={selectedSymptom} />}
     </div>
