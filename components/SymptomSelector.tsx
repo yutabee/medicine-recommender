@@ -1,17 +1,40 @@
-// components/SymptomSelector.tsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent, FC } from "react";
 
-export default function SymptomSelector({ onSymptomSelect }) {
-  const [symptoms, setSymptoms] = useState([]);
-  const [selectedSymptom, setSelectedSymptom] = useState("");
+interface ProductOnSymptom {
+  productId: number;
+  product: {
+    id: number;
+    amazonId: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+  };
+}
+
+interface Symptom {
+  id: number;
+  name: string;
+  description: string;
+  products: ProductOnSymptom[];
+}
+
+interface SymptomSelectorProps {
+  onSymptomSelect: (symptomId: string) => void;
+}
+
+export const SymptomSelector: FC<SymptomSelectorProps> = ({
+  onSymptomSelect,
+}) => {
+  const [symptoms, setSymptoms] = useState<Symptom[]>([]);
+  const [selectedSymptom, setSelectedSymptom] = useState<string>("");
 
   useEffect(() => {
     fetch("/api/symptoms")
       .then((response) => response.json())
-      .then((data) => setSymptoms(data));
+      .then((data: Symptom[]) => setSymptoms(data));
   }, []);
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectedSymptom(event.target.value);
     onSymptomSelect(event.target.value);
   };
@@ -26,4 +49,4 @@ export default function SymptomSelector({ onSymptomSelect }) {
       ))}
     </select>
   );
-}
+};

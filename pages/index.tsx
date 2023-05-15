@@ -1,11 +1,11 @@
 import { useState } from "react";
-import SymptomSelector from "../components/SymptomSelector";
-import ProductList from "../components/ProductList";
+import { SymptomSelector } from "@/components/SymptomSelector";
+import { ProductList } from "@/components/ProductList";
 
 export default function Home() {
-  const [selectedSymptom, setSelectedSymptom] = useState(null);
+  const [selectedSymptom, setSelectedSymptom] = useState<string | null>(null);
 
-  const handleSymptomSelect = (symptomId) => {
+  const handleSymptomSelect = (symptomId: string) => {
     setSelectedSymptom(symptomId);
   };
 
