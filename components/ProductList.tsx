@@ -33,12 +33,12 @@ export const ProductList: FC<ProductListProps> = ({ symptomId }) => {
     <div>
       {products?.map((product: Product) => (
         <div key={product.id}>
-          {/* <Image
-            width={500}
-            height={500}
+          <Image
+            width={300}
+            height={300}
             src={product.imageUrl}
             alt={product.name}
-          /> */}
+          />
           <p>{product.imageUrl}</p>
           <h2>{product.name}</h2>
           <p>{product.description}</p>
