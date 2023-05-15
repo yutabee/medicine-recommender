@@ -7,7 +7,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
+  const { symptomId } = req.query;
+
   const products = await prisma.product.findMany({
+    where: {
+      symptoms: {
+        some: {
+          symptomId: Number(symptomId),
+        },
+      },
+    },
     include: {
       symptoms: {
         select: {
