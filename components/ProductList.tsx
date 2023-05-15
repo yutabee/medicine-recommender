@@ -1,5 +1,16 @@
 import Image from "next/image";
-import { useEffect, useState, FC } from "react";
+import { FC } from "react";
+import { useProducts } from "@/hooks/useProducts";
+
+interface ProductListProps {
+  symptomId: string;
+}
+
+interface Symptom {
+  id: number;
+  name: string;
+  description: string;
+}
 
 interface Product {
   id: number;
@@ -7,26 +18,20 @@ interface Product {
   name: string;
   description: string;
   imageUrl: string;
-}
-
-interface ProductListProps {
-  symptomId: string;
+  symptoms: {
+    symptom: Symptom;
+  }[];
 }
 
 export const ProductList: FC<ProductListProps> = ({ symptomId }) => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const { products, isLoading, isError } = useProducts(symptomId);
 
-  useEffect(() => {
-    if (symptomId) {
-      fetch(`/api/products?symptomId=${symptomId}`)
-        .then((response) => response.json())
-        .then((data: Product[]) => setProducts(data));
-    }
-  }, [symptomId]);
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error occurred</div>;
 
   return (
     <div>
-      {products.map((product) => (
+      {products?.map((product: Product) => (
         <div key={product.id}>
           {/* <Image
             width={500}
