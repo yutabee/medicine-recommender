@@ -39,7 +39,6 @@ export const ProductList: FC<ProductListProps> = ({ symptomId }) => {
             src={product.imageUrl}
             alt={product.name}
           />
-          <p>{product.imageUrl}</p>
           <h2>{product.name}</h2>
           <p>{product.description}</p>
         </div>
