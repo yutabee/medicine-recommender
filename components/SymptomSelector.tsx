@@ -41,7 +41,11 @@ export const SymptomSelector: FC<SymptomSelectorProps> = ({
   const safeSymptoms = symptoms || [];
 
   return (
-    <select value={selectedSymptom} onChange={handleChange}>
+    <select
+      value={selectedSymptom}
+      onChange={handleChange}
+      className="py-2 px-3 border rounded-lg bg-slate-50"
+    >
       <option value="">Select a symptom...</option>
       {safeSymptoms.map((symptom) => (
         <option key={symptom.id} value={symptom.id}>

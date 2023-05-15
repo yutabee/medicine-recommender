@@ -30,17 +30,22 @@ export const ProductList: FC<ProductListProps> = ({ symptomId }) => {
   if (isError) return <div>Error occurred</div>;
 
   return (
-    <div>
+    <div className="flex flex-wrap justify-center">
       {products?.map((product: Product) => (
-        <div key={product.id}>
+        <div
+          key={product.id}
+          className="m-4 w-60 border rounded-lg overflow-hidden shadow-lg"
+        >
           <Image
             width={300}
             height={300}
             src={product.imageUrl}
             alt={product.name}
           />
-          <h2>{product.name}</h2>
-          <p>{product.description}</p>
+          <div className="p-4 bg-slate-50">
+            <h2 className="font-bold">{product.name}</h2>
+            <p className="text-sm">{product.description}</p>
+          </div>
         </div>
       ))}
     </div>
