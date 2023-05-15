@@ -1,22 +1,5 @@
+import { Symptom } from "@prisma/client";
 import useSWR from "swr";
-
-interface ProductOnSymptom {
-  productId: number;
-  product: {
-    id: number;
-    amazonId: string;
-    name: string;
-    description: string;
-    imageUrl: string;
-  };
-}
-
-interface Symptom {
-  id: number;
-  name: string;
-  description: string;
-  products: ProductOnSymptom[];
-}
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

@@ -1,23 +1,5 @@
 import { useSymptoms } from "@/hooks/useSymptoms";
-import { useState, useEffect, ChangeEvent, FC } from "react";
-
-interface ProductOnSymptom {
-  productId: number;
-  product: {
-    id: number;
-    amazonId: string;
-    name: string;
-    description: string;
-    imageUrl: string;
-  };
-}
-
-interface Symptom {
-  id: number;
-  name: string;
-  description: string;
-  products: ProductOnSymptom[];
-}
+import { useState, ChangeEvent, FC } from "react";
 
 interface SymptomSelectorProps {
   onSymptomSelect: (symptomId: string) => void;

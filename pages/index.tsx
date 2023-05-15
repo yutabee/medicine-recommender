@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SymptomSelector } from "@/components/SymptomSelector";
 import { ProductList } from "@/components/ProductList";
-import Header from "@/components/Header";
+import { Header } from "@/components/Header";
 
 export default function Home() {
   const [selectedSymptom, setSelectedSymptom] = useState<string | null>(null);

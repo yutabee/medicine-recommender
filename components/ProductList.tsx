@@ -1,26 +1,10 @@
 import Image from "next/image";
 import { FC } from "react";
 import { useProducts } from "@/hooks/useProducts";
+import { Product } from "@prisma/client";
 
 interface ProductListProps {
   symptomId: string;
-}
-
-interface Symptom {
-  id: number;
-  name: string;
-  description: string;
-}
-
-interface Product {
-  id: number;
-  amazonId: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-  symptoms: {
-    symptom: Symptom;
-  }[];
 }
 
 export const ProductList: FC<ProductListProps> = ({ symptomId }) => {
