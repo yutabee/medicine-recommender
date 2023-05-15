@@ -1,4 +1,3 @@
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
 import useSWR from "swr";
 
 interface ProductOnSymptom {
@@ -18,6 +17,8 @@ interface Symptom {
   description: string;
   products: ProductOnSymptom[];
 }
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function useSymptoms() {
   const { data, error } = useSWR<Symptom[]>("/api/symptoms", fetcher);
