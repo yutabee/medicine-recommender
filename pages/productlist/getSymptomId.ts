@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-
-export const prisma = new PrismaClient();
+import { prisma } from "@/pages/api/prismaClient";
 
 export async function getSymptomId(symptomName: string) {
   const symptom = await prisma.symptom.findFirst({
