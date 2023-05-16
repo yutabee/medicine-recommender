@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import { prisma } from "@/pages/api/prismaClient";
 
 export async function getSymptomId(symptomName: string) {
