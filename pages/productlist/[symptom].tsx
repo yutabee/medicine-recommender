@@ -1,6 +1,6 @@
 import { ProductList } from "@/components/ProductList";
 import { Header } from "@/components/Header";
-import { getSymptomId } from "./getSymptomId";
+import { getSymptomId } from "@/libs/getSymptomId";
 import { GetServerSidePropsContext } from "next/types";
 
 export const getServerSideProps = async (
