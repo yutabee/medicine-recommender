@@ -14,7 +14,6 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-blue-100">
       <Header />
       <SymptomSelector onSymptomSelect={handleSymptomSelect} />
-      {selectedSymptom && <ProductList symptomId={selectedSymptom} />}
     </div>
   );
 }

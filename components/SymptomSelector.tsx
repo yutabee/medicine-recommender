@@ -18,6 +18,7 @@ import {
   faAppleAlt,
   faFirstAid,
 } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 interface SymptomSelectorProps {
   onSymptomSelect: (symptomId: string) => void;
@@ -63,21 +64,23 @@ export const SymptomSelector: FC<SymptomSelectorProps> = ({
   return (
     <div className="grid grid-cols-3 gap-4">
       {safeSymptoms.map((symptom) => (
-        <div
-          key={symptom.id}
-          className={`bg-gray-50 flex flex-col items-center justify-center p-4 transition-colors duration-200 ease-in-out border-2 border-gray-200 rounded-md cursor-pointer hover:border-blue-200 ${
-            selectedSymptom === symptom.id.toString()
-              ? "border-blue-500 bg-blue-100"
-              : ""
-          }`}
-          onClick={() => handleIconClick(symptom.id.toString())}
-        >
-          <FontAwesomeIcon
-            icon={categoryToIcon[symptom.name]}
-            className="text-2xl mb-2"
-          />
-          <div className="text-sm">{symptom.name}</div>
-        </div>
+        <Link key={symptom.id} href={`/productlist/${symptom.name}`}>
+          <div
+            key={symptom.id}
+            className={`bg-gray-50 flex flex-col items-center justify-center p-4 transition-colors duration-200 ease-in-out border-2 border-gray-200 rounded-md cursor-pointer hover:border-blue-200 ${
+              selectedSymptom === symptom.id.toString()
+                ? "border-blue-500 bg-blue-100"
+                : ""
+            }`}
+            onClick={() => handleIconClick(symptom.id.toString())}
+          >
+            <FontAwesomeIcon
+              icon={categoryToIcon[symptom.name]}
+              className="text-2xl mb-2"
+            />
+            <div className="text-sm">{symptom.name}</div>
+          </div>
+        </Link>
       ))}
     </div>
   );
