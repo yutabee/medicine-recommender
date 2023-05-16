@@ -76,7 +76,7 @@ export const SymptomSelector: FC<SymptomSelectorProps> = ({
             icon={categoryToIcon[symptom.name]}
             className="text-2xl mb-2"
           />
-          <div className="text-lg">{symptom.name}</div>
+          <div className="text-sm">{symptom.name}</div>
         </div>
       ))}
     </div>
