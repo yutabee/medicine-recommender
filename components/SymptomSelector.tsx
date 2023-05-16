@@ -54,9 +54,7 @@ export const SymptomSelector: FC<SymptomSelectorProps> = ({
 
   if (isLoading) return <div className="text-center text-xl">Loading...</div>;
   if (isError)
-    return (
-      <div className="text-center text-xl text-red-500">Error occurred</div>
-    );
+    return <div className="text-center text-xl text-red-500">Error</div>;
 
   // symptomsが未定義の場合は空の配列を使用
   const safeSymptoms = symptoms || [];
