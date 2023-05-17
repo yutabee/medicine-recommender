@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
 
@@ -36,11 +38,12 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({
 }) => {
   const [isFavorite, setIsFavorite] = useState<boolean | null>(null);
 
+  console.log(userId, productId);
   useEffect(() => {
     axios
       .get(`/api/favorites/${userId}/${productId}`)
       .then((response) => {
-        console.log("Favorite data:", response.data); // Debug: Show the favorite data
+        console.log("Favorite data:", response.data);
         setIsFavorite(response.data.isFavorite);
       })
       .catch((error) => {
@@ -63,8 +66,11 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({
             );
             setIsFavorite(newState);
           }}
+          className={`p-1 rounded-full focus:outline-none transition-colors duration-200 ${
+            isFavorite ? "text-yellow-500" : "text-gray-500"
+          }`}
         >
-          {isFavorite ? "Remove from favorites" : "Add to favorites"}
+          <FontAwesomeIcon icon={faStar} />
         </button>
       )}
     </>
