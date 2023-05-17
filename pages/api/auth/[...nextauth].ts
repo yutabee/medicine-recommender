@@ -1,11 +1,16 @@
 import NextAuth, {
   NextAuthOptions,
-  Session,
+  Session as NextAuthSession,
   User as NextAuthUser,
 } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/libs/prismaClient";
+
+// Extend the built-in Session type
+interface Session extends NextAuthSession {
+  userId?: string; // Assuming the user ID is a number, adjust the type as necessary
+}
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -16,13 +21,19 @@ const authOptions: NextAuthOptions = {
   ],
   adapter: PrismaAdapter(prisma),
   callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
+    session: async ({
+      session,
+      user,
+    }: {
+      session: NextAuthSession;
+      user: { id: string };
+    }) => {
+      const customSession: Session = {
+        ...session,
+        userId: user.id,
+      };
+      return customSession;
+    },
   },
 };
 
