@@ -3,7 +3,11 @@ import { FC } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSignInAlt,
+  faSignOutAlt,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const Header: FC = () => {
   const { data: session, status: loading } = useSession();
@@ -34,14 +38,23 @@ export const Header: FC = () => {
 
           {session && session.user && (
             <div className="flex items-center space-x-4">
-              <span className="text-white">{session.user.name}</span>
-              <Image
-                className="rounded-full"
-                width={40}
-                height={40}
-                src={session.user.image || "/images/non-image.png"}
-                alt={session.user.name || "noname"}
-              />
+              <Link
+                href={"/favorites"}
+                className="cursor-pointer text-white flex items-center"
+              >
+                <FontAwesomeIcon icon={faStar} className="mr-2" />
+                お気に入り
+              </Link>
+              <div className="flex flex-col items-center">
+                <Image
+                  className="rounded-full"
+                  width={40}
+                  height={40}
+                  src={session.user.image || "/images/non-image.png"}
+                  alt={session.user.name || "noname"}
+                />
+                <span className="text-white mb-2">{session.user.name}</span>
+              </div>
               <div
                 onClick={(e) => {
                   e.preventDefault();
