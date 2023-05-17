@@ -4,7 +4,10 @@ import useSWR from "swr";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function useFavorites() {
-  const { data, error } = useSWR<Product[]>("/api/favorites", fetcher);
+  const { data, error } = useSWR<Product[]>(
+    "/api/favorites/favorites",
+    fetcher
+  );
 
   return {
     favorites: data,
