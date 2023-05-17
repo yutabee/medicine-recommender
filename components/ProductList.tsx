@@ -3,7 +3,7 @@ import { FC } from "react";
 import { useProducts } from "@/hooks/useProducts";
 import { Product } from "@prisma/client";
 import { FavoriteButton } from "./FavoriteButton";
-import { useSession } from "next-auth/react"; // NextAuthのuseSessionをインポート
+import { useSession } from "next-auth/react";
 
 interface ProductListProps {
   symptomId: string;
@@ -28,9 +28,6 @@ export const ProductList: FC<ProductListProps> = ({ symptomId }) => {
   if (isLoading || status === "loading") return <div>Loading...</div>;
   if (isError) return <div>Error occurred</div>;
 
-  // セッションが存在しない場合、つまりユーザーがログインしていない場合はエラーメッセージを表示
-  if (!session) return <div>Please log in to view favorites</div>;
-
   const customSession = session as unknown as CustomSession; // カスタムセッションへキャスト
 
   return (
@@ -49,10 +46,12 @@ export const ProductList: FC<ProductListProps> = ({ symptomId }) => {
           <div className="p-4 bg-slate-50">
             <h2 className="font-bold">{product.name}</h2>
             <p className="text-sm">{product.description}</p>
-            <FavoriteButton
-              userId={customSession.userId}
-              productId={product.id}
-            />
+            {session && (
+              <FavoriteButton
+                userId={customSession.userId}
+                productId={product.id}
+              />
+            )}
           </div>
         </div>
       ))}
