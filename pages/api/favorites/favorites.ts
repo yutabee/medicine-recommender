@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
 
 interface CustomSession extends Session {
-  userId?: string; // Make userId optional
+  userId?: string;
 }
 
 export default async function handle(
