@@ -15,12 +15,14 @@ async function toggleFavorite(
 
     if (response.status === 200) {
       console.log(isFavorite ? "Removed from favorites" : "Added to favorites");
+      return !isFavorite;
     } else {
       console.log("Failed to toggle favorite");
     }
   } catch (error) {
     console.error("Failed to toggle favorite:", error);
   }
+  return isFavorite;
 }
 
 interface FavoriteButtonProps {
@@ -32,23 +34,39 @@ export const FavoriteButton: FC<FavoriteButtonProps> = ({
   userId,
   productId,
 }) => {
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean | null>(null);
 
   useEffect(() => {
     axios
       .get(`/api/favorites/${userId}/${productId}`)
-      .then((response) => setIsFavorite(response.data.isFavorite))
-      .catch((error) => console.error("Failed to get favorite state:", error));
+      .then((response) => {
+        console.log("Favorite data:", response.data); // Debug: Show the favorite data
+        setIsFavorite(response.data.isFavorite);
+      })
+      .catch((error) => {
+        console.error(
+          "Failed to get favorite state:",
+          error.response ? error.response.data : error.message
+        );
+      });
   }, [userId, productId]);
 
   return (
-    <button
-      onClick={() => {
-        toggleFavorite(userId, productId, isFavorite);
-        setIsFavorite(!isFavorite);
-      }}
-    >
-      {isFavorite ? "Remove from favorites" : "Add to favorites"}
-    </button>
+    <>
+      {isFavorite !== null && (
+        <button
+          onClick={async () => {
+            const newState = await toggleFavorite(
+              userId,
+              productId,
+              isFavorite
+            );
+            setIsFavorite(newState);
+          }}
+        >
+          {isFavorite ? "Remove from favorites" : "Add to favorites"}
+        </button>
+      )}
+    </>
   );
 };

@@ -9,7 +9,6 @@ interface ProductListProps {
   symptomId: string;
 }
 
-// カスタムセッションを定義
 interface CustomSession {
   user: {
     name: string;
