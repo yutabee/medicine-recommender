@@ -7,7 +7,7 @@
     "build": "next build && npx prisma generate",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "next build && npx prisma generate"
+    "vercel-build": "next build && rm -rf node_modules/.prisma/client && npx prisma generate"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
